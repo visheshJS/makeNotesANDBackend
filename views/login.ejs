@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<style>
+  @keyframes gradient-shift {
+    0% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .animate-gradient {
+    animation: gradient-shift 8s ease infinite;
+  }
+</style>
+
+<body class="h-screen bg-gradient-to-r from-black via-gray-900 to-black bg-[length:200%_200%] animate-gradient text-gray-100 flex items-center justify-center px-4">
+  
+  <!-- Login Form Container -->
+  <div class="relative z-10 p-6 bg-gray-800/90 rounded-lg shadow-lg backdrop-blur-md w-full max-w-md sm:max-w-lg min-h-[60vh] sm:min-h-[80vh] flex flex-col justify-center space-y-6">
+
+    <!-- Logo and Title -->
+    <div class="absolute flex gap-4 top-6 left-6">
+      <img class="w-12 h-12" src="https://play-lh.googleusercontent.com/0HFoa1_wK9RhBKN6L0bffp-WAwk3swBJ46VJy0ewyK8V3pCneWPFoIns73pjKxLm2stS" alt="logo">
+      <h1 class="text-4xl font-bold text-gray-300 mt-1">Make Notes</h1>
+    </div>
+
+    <!-- Form Title -->
+    <div class="flex items-center justify-center">
+      <h1 class="text-2xl font-bold text-gray-300 text-center">Log In to Your Account</h1>
+    </div>
+
+    <!-- Login Form -->
+    <form id="loginForm" action="/login" method="POST" class="space-y-4">
+      
+      <!-- Email Field -->
+      <div>
+        <label for="email" class="block text-sm font-medium">Email Address</label>
+        <input type="email" id="email" name="email" required
+               class="w-full px-4 py-2 mt-1 bg-gray-700 rounded-lg focus:outline-none focus:ring focus:ring-blue-500">
+      </div>
+
+      <!-- Password Field -->
+      <div>
+        <label for="password" class="block text-sm font-medium">Password</label>
+        <input type="password" id="password" name="password" required
+               class="w-full px-4 py-2 mt-1 bg-gray-700 rounded-lg focus:outline-none focus:ring focus:ring-blue-500">
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit"
+              class="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition">
+        Log In
+      </button>
+    </form>
+
+    <!-- Register Link -->
+    <p class="mt-4 text-center text-sm">
+      Don't have an account? 
+      <a href="/signup" class="text-green-400 hover:underline">Sign-Up</a>.
+    </p>
+
+  </div>
+
+
+  <script>
+    
+  </script>
+</body>
+
+</html>

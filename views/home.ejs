@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Make Notes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes gradient-shift {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .animate-gradient {
+      animation: gradient-shift 8s ease infinite;
+    }
+  </style>
+</head>
+<body class="h-screen bg-gradient-to-r from-black via-gray-900 to-black bg-[length:200%_200%] animate-gradient text-gray-100 flex items-center justify-center px-4">
+  
+  <!-- Content Section -->
+  <div class="relative z-10 p-6 bg-gray-800/90 rounded-lg shadow-lg backdrop-blur-md w-full max-w-md sm:max-w-lg min-h-[60vh] sm:min-h-[50vh] flex flex-col justify-center space-y-4">
+    <!-- Title Section -->
+    <img class="w-12 h-12 absolute top-4 left-4" src="https://play-lh.googleusercontent.com/0HFoa1_wK9RhBKN6L0bffp-WAwk3swBJ46VJy0ewyK8V3pCneWPFoIns73pjKxLm2stS" alt="logo">
+    <h1 class="text-4xl font-bold text-gray-300 mb-4 text-center">Welcome to Make Notes</h1>
+    <p class="text-lg text-gray-400 mb-6 text-center">Your ideas, organized in one place.</p>
+
+    <!-- Buttons Section -->
+    <div class="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4">
+      <a href="/login" class="px-6 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition w-full text-center">Login</a>
+      <a href="/signup" class="px-6 py-2 bg-black border border-none text-white rounded-lg hover:bg-slate-950 transition w-full text-center outline-none">Register</a>
+    </div>
+  </div>
+
