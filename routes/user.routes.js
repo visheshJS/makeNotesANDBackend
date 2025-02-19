@@ -8,7 +8,7 @@ const userRouter = Router();
 userRouter.route("/signup").post(registerUser);
 
 //login route
-userRouter.route("/login").post(loginUser);
+userRouter.route("/login").post(verifyJWT,loginUser);
 
 //logout route
 userRouter.route("/logout").get(verifyJWT, logOutUser);
