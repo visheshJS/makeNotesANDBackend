@@ -6,8 +6,8 @@ import { User } from "../models/user.js";
 const generateAccessandRefreshToken= async (userId)=>{
     try{
         const user = await User.findById(userId);
-        const accessToken= user.generateAccessToken();
-        const refreshToken= user.generateRefreshToken();
+        const accessToken= await user.generateAccessToken();
+        const refreshToken= await user.generateRefreshToken();
         user.refreshToken= refreshToken;
         await user.save({validateBeforeSave:false});
         return {accessToken,refreshToken};
@@ -50,20 +50,33 @@ const registerUser= asyncHandler(async(req,res)=>{
 
     //generate refresh and access token
 
-    const accessToken= user.generateAccessToken();
-    const refreshToken= user.generateRefreshToken();
+    const accessToken= await user.generateAccessToken();
+    const refreshToken= await user.generateRefreshToken();
 
     // Send response
     // Send response
-    res.status(201).json(
-        new ApiResponse(201, "User registered successfully", {
-            id: user._id,
-            name: user.name,
-            email: user.email,
-            accessToken,
-            refreshToken,
-        })
-    );
+    // res.status(201).json(
+    //     new ApiResponse(201, "User registered successfully", {
+    //         id: user._id,
+    //         name: user.name,
+    //         email: user.email,
+    //         accessToken,
+    //         refreshToken,
+    //     })
+    
+    // );
+    const options={
+        httpOnly:true,
+        secure:true
+    };
+    res
+    .cookie('refreshToken', refreshToken, options)
+    .cookie("accessToken", accessToken,options)
+
+
+
+    res.redirect('/')
+    
 
 
 
@@ -95,25 +108,33 @@ const loginUser = asyncHandler(async (req, res) => {
         throw new ApiError(401, "Invalid password");
     }
 
-    const {accessToken, refreshToken}= await generateAccessandRefreshToken(user._id);
+    const {accessToken, refreshToken}=await generateAccessandRefreshToken(user._id);
 
     const loggedInUser= await User.findById(user._id).select("-password -refreshToken");
-
+    
     const options={
         httpOnly:true,
         secure:true
     }
 
-    return res.status(200)
-    .cookie("refreshToken", refreshToken, options)
-    .cookie("accessToken", accessToken, options)
-    .json(
-        new ApiResponse(200,{
-            user: loggedInUser, accessToken, refreshToken
-        },
-        "user logged in successfully"
+    // return res.status(200)
+    // .cookie("refreshToken", refreshToken, options)
+    // .cookie("accessToken", accessToken, options)
+    // .json(
+    //     new ApiResponse(200,{
+    //         user: loggedInUser, accessToken, refreshToken
+    //     },
+    //     "user logged in successfully"
 
-    ))
+    // ))
+    res
+    .cookie('refreshToken', refreshToken, options)
+    .cookie("accessToken", accessToken,options)
+
+
+
+    res.redirect('/')
+    
 
 
 
@@ -133,7 +154,9 @@ const logOutUser = asyncHandler(async (req,res)=>{
     )
     const options= {
         httpOnly:true,
-        secure:true
+        secure:true,
+        // secure: process.env.NODE_ENV === 'production', // Set secure flag in production
+        sameSite: 'strict',
 
     }
 
